@@ -13,7 +13,7 @@ var app = express();
 
 app.get('/test', function(req, res){
   console.log(req.body);
-  res.status(403).end();
+  res.status(200).end();
 });
 
 app.listen(3000);
