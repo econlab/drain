@@ -1,9 +1,19 @@
-var net = require('net');
+// var net = require('net');
+//
+// net.createServer(function(socket) {
+//
+//   socket.on('data', function(data) {
+//     process.stdout.write(data);
+//   });
+//
+// }).listen(5000);
 
-net.createServer(function(socket) {
-  
-  socket.on('data', function(data) {
-    process.stdout.write(data);
-  });
-  
-}).listen(5000);
+var express = require('express');
+var app = express();
+
+app.get('/test', function(req, res){
+  console.log(req.body);
+  res.status(403).end();
+});
+
+app.listen(3000);
