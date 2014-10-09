@@ -1,4 +1,6 @@
 /** Dependencies */
+var https      = require('https');
+var fs         = require('fs');
 var express    = require('express');
 var bodyParser = require('body-parser');
 var logParser  = require('./lib/logparser.js');
@@ -42,4 +44,17 @@ app.post('/session/:session', bodyParser.json, function(req, res) {
 
 
 // Start Express
-app.listen(process.env.port || 3000);
+if (process.env.NODE_ENV==='production') {
+  var ssl = {
+    key:  fs.readFileSync(process.env.SSL_KEY),
+    cert: fs.readFileSync(process.env.SSL_CRT)
+  };
+  
+  // launch https
+  https.createServer(ssl, app).listen(process.env.port || 3000);
+  
+} else {
+  
+  // do normal app
+  app.listen(process.env.port || 3000);
+}
