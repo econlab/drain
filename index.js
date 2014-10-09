@@ -43,6 +43,17 @@ app.post('/session/:session', bodyParser.json, function(req, res) {
 });
 
 
+/**
+ * ETC
+ */
+app.all('*', function(req, res) {
+  res.send('You seem to be mistaken...');
+});
+
+
+
+
+
 // Start Express
 if (process.env.NODE_ENV==='production') {
   var ssl = {
@@ -51,10 +62,10 @@ if (process.env.NODE_ENV==='production') {
   };
   
   // launch https
-  https.createServer(ssl, app).listen(process.env.port || 3000);
+  https.createServer(ssl, app).listen(process.env.PORT || 3000);
   
 } else {
   
   // do normal app
-  app.listen(process.env.port || 3000);
+  app.listen(process.env.PORT || 3000);
 }
