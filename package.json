@@ -17,6 +17,8 @@
   "author": "Miles Zimmerman",
   "license": "MIT",
   "dependencies": {
+    "amqp": "^0.2.0",
+    "body-parser": "^1.9.0",
     "express": "^4.9.5",
     "figaro": "mileszim/node-figaro",
     "hiredis": "^0.1.17",
