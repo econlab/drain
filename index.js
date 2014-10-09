@@ -6,7 +6,7 @@ var broker     = require('./lib/broker.js');
 var ConsoleIO  = require('./lib/io/console.js');
 
 /** Init */
-Broker.use(new ConsoleIO());
+broker.use(new ConsoleIO());
 var app = express();
 
 
