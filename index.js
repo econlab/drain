@@ -1,10 +1,7 @@
 /** Dependencies */
-var figaro     = require('figaro').parse();
-var redis      = require('redis').createClient();
 var express    = require('express');
 var bodyParser = require('body-parser');
 var logParser  = require('./lib/logparser.js');
-var msg        = require('./lib/msg.js');
 
 
 /** Init */
