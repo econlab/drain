@@ -3,10 +3,17 @@ var express    = require('express');
 var bodyParser = require('body-parser');
 var logParser  = require('./lib/logparser.js');
 var broker     = require('./lib/broker.js');
-var ConsoleIO  = require('./lib/io/console.js');
+
+/** IO */
+var io = {
+  console:     require('./lib/io/console.js'),
+  orchestrate: require('./lib/io/orchestrate.js')
+};
 
 /** Init */
-broker.use(new ConsoleIO());
+broker.use(new io.console());
+broker.use(new io.orchestrate());
+
 var app = express();
 
 
