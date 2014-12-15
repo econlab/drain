@@ -2,6 +2,7 @@
 var https      = require('https');
 var fs         = require('fs');
 var express    = require('express');
+var auth       = require('basic-auth');
 var bodyParser = require('body-parser');
 var logParser  = require('./lib/logparser.js');
 var broker     = require('./lib/broker.js');
@@ -24,9 +25,9 @@ var app = express();
 /** 
  * Syslogs
  */
-app.post('/syslog/:session', logParser.syslog, function(req, res) {
+app.post('/syslog/:session_id/:session_token', logParser.syslog, function(req, res) {
   req.loglines.forEach(function(line) {
-    broker.syslog(req.param('session'), line);
+    broker.syslog(req.param('session_id'), line);
   });
 
   // OK
@@ -35,12 +36,23 @@ app.post('/syslog/:session', logParser.syslog, function(req, res) {
 
 
 /** 
- * Records 
+ * Basic Auth 
  */
-app.post('/session/:session', bodyParser.json, function(req, res) {
-  broker.record(req.param('session'), req.param('name'), req.param('payload'));
+app.use('/filelog', function(req, res, next) {
+  var session = auth(req);
+  if (!session) {
+    res.status(401).json({ "status": "unauthorized" });
+    return;
+  }
+  next();
+});
 
-  // OK
+// Records
+app.post('/filelog', bodyParser.json, function(req, res) {
+  var session = auth(req);
+  broker.record(session.name, req.param('filename'), req.param('payload'));
+
+  // Just send OK
   res.status(200).end();
 });
 

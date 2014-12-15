@@ -1,7 +1,7 @@
 drain
 =====
 
-Log drain/general file writer endpoint for active experiments.
+Append-only log drain / file writer endpoint for active experiments.
 
 
 ### Output Streams ###
