@@ -50,7 +50,7 @@ app.use('/filelog', function(req, res, next) {
 // Records
 app.post('/filelog', bodyParser.json, function(req, res) {
   var session = auth(req);
-  broker.record(session.name, req.param('filename'), req.param('payload'));
+  broker.filelog(session.name, req.param('filename'), req.param('payload'));
 
   // Just send OK
   res.status(200).end();
